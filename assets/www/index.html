@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head style="overflow: hidden;z-index: inherit">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, minimum-scale=1, width=device-width" />
+    <title>phoneGap</title>
+    <script type="text/javascript" charset="utf-8" src="js/cordova.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="js/Insomnia.js"></script>
+    <script type="text/javascript" src="js/Brightness.js"></script>
+    <script type="text/javascript" src="js/sayJS.js"></script>
+    <script type="text/javascript">
+        $.mobile.loading().hide();
+        function setBrightness(value) {
+            // value should be float in range from 0 to 1.
+            window.plugins.brightness.setBrightness(1, win, fail);
+        }
+        function getBrightness() {
+            // win([-1,0-1]) float 0-1 is a brightness level, -1 represents a system default
+            window.plugins.brightness.getBrightness(win, fail);
+        }
+        function win(status) {
+            alert('Message: ' + status);
+        }
+        function fail(status) {
+            alert('Error: ' + status);
+        }
+
+        function onLoad() {
+            document.addEventListener("deviceready", onDeviceReady, false);
+        }
+
+        // PhoneGap is loaded and it is now safe to make calls PhoneGap methods
+        //
+        function onDeviceReady() {
+            window.addEventListener("batterystatus", onBatteryStatus, false);
+
+            //    /***for device information */
+            /* var element = document.getElementById('deviceProperties');
+             element.innerHTML = 'Device Model: '    + device.model    + '<br />' +
+             'Device Cordova: '  + device.cordova  + '<br />' +
+             'Device Platform: ' + device.platform + '<br />' +
+             'Device UUID: '     + device.uuid     + '<br />' +
+             'Device Version: '  + device.version  + '<br />';*/
+            deviceID = device.uuid
+        }
+
+        // Handle the batterystatus event
+        //
+        function onBatteryStatus(info) {
+            batteryStatus = {};
+            //console.log("Level: " + info.level + " isPlugged: " + info.isPlugged);
+            batteryStatus["batteryLevel"] = info.level;
+            batteryStatus["isPlugged"] = info.isPlugged;
+            batteryStatus["UUID"] = deviceID;
+        }
+
+    </script>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        .messageClass {
+            font-family: Arial, Helvetica, sans-serif;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            z-index: 105;
+            text-align: center;
+            font-weight: bold;
+            font-size: 100%;
+            color: white;
+            padding: 10px 0px 10px 0px;
+            background-color: #CEECF5;
+        }
+
+        .messageClass span {
+            text-align: center;
+            width: 95%;
+            float: left;
+        }
+
+        .close-notify {
+            white-space: nowrap;
+            float: right;
+            margin-right: 10px;
+            color: #fff;
+            text-decoration: none;
+            border: 2px #fff solid;
+            padding-left: 3px;
+            padding-right: 3px
+        }
+
+        .close-notify a {
+            color: #fff;
+        }
+    </style>
+</head>
+<!--<body onload="onLoad()" onclick="bodyOnclick()" style="width: 100%;height: 100%">-->
+<body onload="onLoad()" style="overflow: hidden">
+<div style="overflow-x: hidden;overflow-y: hidden;z-index: inherit">
+<label style="width: 100%;height: 100%" for="url">
+    <b>URL</b>
+    <input width="100%" type="text" id="url" name="url">
+</label>
+<label style="width: 100%;height: 100%" for="comment">
+    <b>Message size in byte</b><br>
+    <input type="text" id="comment" name="comment" width="100%" placeholder="size < 500 byte"/>
+    <!--<textarea style="width: 100%;height: 100%; min-height: 100%; max-height: 100%; overflow: auto;resize: none" id="comment" name="comment" cols="32" rows="5"></textarea>-->
+</label><br>
+<label style="width: 100%;height: 100%" for="intervalValue">
+    <b>Time interval</b><br>
+    <select id="intervalValue" style="list-style: none">
+        <option value=""></option>
+        <!-- <option value="">-Select interval-</option>-->
+        <option value="3000">3 sec.</option>
+        <option value="5000">5 sec.</option>
+        <option value="10000">10 sec.</option>
+        <option value="20000">20 sec.</option>
+        <option value="30000">30 sec.</option>
+        <option value="60000">60 sec.</option>
+    </select>
+</label><br>
+<label style="width: 100%;height: 100%" for="frequency">
+    <b>Repetition</b><br>
+    <select id="frequency">
+        <option value=""></option>
+        <!-- <option value="">-Repeats the message-</option>-->
+        <option value="5">5 times</option>
+        <option value="10">10 times</option>
+        <option value="20">20 times</option>
+        <option value="50">50 times</option>
+        <option value="1">forever</option>
+        <option value="other">other</option>
+    </select>
+</label>
+<br>
+<label style="width: 100%;height: 100%" for="wakeupTime">
+    <b>Wakeup Time</b><br>
+    <select id="wakeupTime" class="wakeup">
+        <option value=""></option>
+        <option value="30000">30 sec.</option>
+        <option value="60000">60 sec.</option>
+        <option value="120000">2 min.</option>
+        <option value="1">always</option>
+    </select>
+</label>
+<br>
+<label style="width: 100%;height: 100%" for="awakeTime">
+    <b>Awake time</b><br>
+    <select id="awakeTime">
+        <option value=""></option>
+        <option value="5000">5 sec.</option>
+        <option value="10000">10 sec.</option>
+        <option value="20000">20 sec.</option>
+        <option value="30000">30 sec.</option>
+        <option value="60000">60 sec.</option>
+    </select>
+</label>
+
+<!--<br>-->
+<!--<label style="width: auto;height: auto" for="elTime">-->
+<!--<b>Elapsed time</b><br>-->
+<!--<select id="elTime">-->
+<!--<option value=""></option>-->
+<!--&lt;!&ndash; <option value="">-Time period-</option>&ndash;&gt;-->
+<!--<option value="1">1 hour</option>-->
+<!--<option value="5">5 hour</option>-->
+<!--<option value="15">12 hour</option>-->
+<!--<option value="30">24 hour</option>-->
+<!--<option value="other">other</option>-->
+<!--</select>-->
+<!--</label>-->
+
+<br>
+<button id="send_btn" style="width: 7pc;height: 3pc">send</button>
+<span class="countMSG"></span>
+<br><br>
+<button id="cancel_btn" style="width: 7pc;height: 3pc">cancel</button>
+&nbsp;
+<button id="clear_btn" style="width: 7pc;height: 3pc">clear</button>
+<div>
+    <!--  <button onclick="window.plugins.insomnia.keepAwake()">awake</button>-->
+    <!--  &nbsp;&nbsp;&nbsp;
+      <button onclick="window.plugins.insomnia.allowSleepAgain()">sleep</button>
+      &nbsp;&nbsp;&nbsp;-->
+    <!--  <button id="awakebtn" onclick="window.plugins.brightness.setBrightness(1)">auto awake</button>-->
+    <button onclick="onBatteryStatus()" id="showNotification" style="display: none"></button>
+</div>
+<div id='messageDiv' class="messageClass" style="display: none;">
+    <span id="massageVal"></span>
+   <!-- <a href="#" class="close-notify">X</a>-->
+</div>
+</div>
+</body>
+</html>

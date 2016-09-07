@@ -1,0 +1,54 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'D:\\AJEET\\nodejs-v0.12.5-x64\\nodejs\\node.exe',
+1 verbose cli   'D:\\AJEET\\nodejs-v0.12.5-x64\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'nodejs' ]
+2 info using npm@2.11.2
+3 info using node@v0.12.5
+4 verbose install initial load of D:\dev\WORKSPACE\Say\package.json
+5 verbose readDependencies loading dependencies from D:\dev\WORKSPACE\Say\package.json
+6 silly cache add args [ 'nodejs', null ]
+7 verbose cache add spec nodejs
+8 silly cache add parsed spec { raw: 'nodejs',
+8 silly cache add   scope: null,
+8 silly cache add   name: 'nodejs',
+8 silly cache add   rawSpec: '',
+8 silly cache add   spec: '*',
+8 silly cache add   type: 'range' }
+9 silly addNamed nodejs@*
+10 verbose addNamed "*" is a valid semver range for nodejs
+11 silly addNameRange { name: 'nodejs', range: '*', hasData: false }
+12 silly mapToRegistry name nodejs
+13 silly mapToRegistry using default registry
+14 silly mapToRegistry registry http://registry.npmjs.org/“
+15 silly mapToRegistry uri http://registry.npmjs.org/“/nodejs
+16 verbose addNameRange registry:http://registry.npmjs.org/“/nodejs not in flight; fetching
+17 verbose request uri http://registry.npmjs.org/“/nodejs
+18 verbose request no auth needed
+19 info attempt registry request try #1 at 12:09:05
+20 verbose request id a4e6bfeb50663fe1
+21 http request GET http://registry.npmjs.org/“/nodejs
+22 info retry will retry, error on last attempt: Error: Invalid protocol: 172.18.251.161:
+23 info attempt registry request try #2 at 12:09:15
+24 http request GET http://registry.npmjs.org/“/nodejs
+25 info retry will retry, error on last attempt: Error: Invalid protocol: 172.18.251.161:
+26 info attempt registry request try #3 at 12:10:15
+27 http request GET http://registry.npmjs.org/“/nodejs
+28 verbose stack Error: Invalid protocol: 172.18.251.161:
+28 verbose stack     at Request.init (D:\AJEET\nodejs-v0.12.5-x64\nodejs\node_modules\npm\node_modules\request\request.js:626:31)
+28 verbose stack     at new Request (D:\AJEET\nodejs-v0.12.5-x64\nodejs\node_modules\npm\node_modules\request\request.js:265:8)
+28 verbose stack     at request (D:\AJEET\nodejs-v0.12.5-x64\nodejs\node_modules\npm\node_modules\request\index.js:56:10)
+28 verbose stack     at CachingRegistryClient.makeRequest (D:\AJEET\nodejs-v0.12.5-x64\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:147:13)
+28 verbose stack     at D:\AJEET\nodejs-v0.12.5-x64\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:65:17
+28 verbose stack     at RetryOperation._fn (D:\AJEET\nodejs-v0.12.5-x64\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\attempt.js:18:5)
+28 verbose stack     at null._onTimeout (D:\AJEET\nodejs-v0.12.5-x64\nodejs\node_modules\npm\node_modules\retry\lib\retry_operation.js:32:10)
+28 verbose stack     at Timer.listOnTimeout (timers.js:119:15)
+29 verbose cwd D:\dev\WORKSPACE\Say
+30 error Windows_NT 6.1.7601
+31 error argv "D:\\AJEET\\nodejs-v0.12.5-x64\\nodejs\\node.exe" "D:\\AJEET\\nodejs-v0.12.5-x64\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "nodejs"
+32 error node v0.12.5
+33 error npm  v2.11.2
+34 error Invalid protocol: 172.18.251.161:
+35 error If you need help, you may report this error at:
+35 error     <https://github.com/npm/npm/issues>
+36 verbose exit [ 1, true ]
